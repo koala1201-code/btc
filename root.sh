@@ -1,37 +1,31 @@
 #!/bin/bash
 
-# อัปเดตแพ็คเกจในระบบ
-echo -e "\033[1;32m[+] Updating system packages...\033[0m"
-apt-get update -y && apt-get upgrade -y
+# ตรวจสอบว่าถูกเรียกใช้ด้วยสิทธิ์ root หรือไม่
+if [ "$(id -u)" != "0" ]; then
+   echo "คุณต้องใช้สิทธิ์ root เพื่อเปลี่ยนรหัสผ่าน" 1>&2
+   exit 1
+fi
 
-# ติดตั้งแพ็คเกจที่จำเป็น
-echo -e "\033[1;32m[+] Installing necessary packages...\033[0m"
-apt-get install -y curl wget vim ufw
+# ขอให้ผู้ใช้ใส่รหัสผ่านใหม่
+echo "โปรดใส่รหัสผ่านใหม่สำหรับ root:"
+read -s new_password
 
-# ตั้งค่าไฟร์วอลล์
-echo -e "\033[1;32m[+] Setting up firewall...\033[0m"
-ufw allow OpenSSH
-ufw --force enable
+# ยืนยันรหัสผ่าน
+echo "ยืนยันรหัสผ่านใหม่:"
+read -s confirm_password
 
-# สร้างผู้ใช้ใหม่ (ในกรณีที่คุณต้องการผู้ใช้เพิ่มเติม)
-NEW_USER="newuser"
-PASSWORD="password123"
-echo -e "\033[1;32m[+] Creating a new user: $NEW_USER...\033[0m"
-useradd -m -s /bin/bash $NEW_USER
-echo "$NEW_USER:$PASSWORD" | chpasswd
-usermod -aG sudo $NEW_USER
+# ตรวจสอบว่ารหัสผ่านที่ใส่ตรงกันหรือไม่
+if [ "$new_password" != "$confirm_password" ]; then
+    echo "รหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง" 1>&2
+    exit 1
+fi
 
-# ตั้งค่า SSH (ปิดการเข้าถึง root ผ่าน SSH)
-echo -e "\033[1;32m[+] Configuring SSH...\033[0m"
-sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
-systemctl restart sshd
+# ใช้คำสั่ง passwd เพื่อเปลี่ยนรหัสผ่าน root
+echo "root:$new_password" | chpasswd
 
-# แสดงข้อมูลสำคัญ
-echo -e "\033[1;34m==================================================\033[0m"
-echo -e "\033[1;33m   Please save this VPS account information\033[0m"
-echo -e "\033[1;34m==================================================\033[0m"
-echo -e "\033[1;36m   Username : $NEW_USER\033[0m"
-echo -e "\033[1;36m   Password : $PASSWORD\033[0m"
-echo -e "\033[1;34m==================================================\033[0m"
-
-echo -e "\033[1;32m[+] Root.sh script execution completed.\033[0m"
+if [ $? -eq 0 ]; then
+    echo "รหัสผ่านของ root ถูกเปลี่ยนเรียบร้อยแล้ว"
+else
+    echo "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน" 1>&2
+    exit 1
+fi
