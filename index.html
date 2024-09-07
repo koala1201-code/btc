@@ -5,116 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send SMS</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(145deg, #1e3c72, #2a5298);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: #fff;
+            box-sizing: border-box;
         }
-
         .container {
-            background: #ffffff;
-            border-radius: 30px;
-            box-shadow: 20px 20px 60px #c9c9c9, -20px -20px 60px #ffffff;
-            padding: 40px;
             max-width: 500px;
             width: 100%;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .container:hover {
-            transform: scale(1.05);
-            box-shadow: 25px 25px 75px #b1b1b1, -25px -25px 75px #ffffff;
-        }
-
         h1 {
-            font-size: 32px;
-            font-weight: 600;
-            color: #2a5298;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-
         label {
             display: block;
             margin: 10px 0 5px;
             font-weight: 600;
-            color: #2a5298;
-            text-align: left;
             font-size: 14px;
+            color: #34495e;
+            text-align: left;
         }
-
         input[type="text"],
         input[type="number"] {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             margin: 10px 0 20px;
-            border: none;
-            border-radius: 20px;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            box-sizing: border-box;
             font-size: 16px;
-            color: #333;
-            background: #f0f0f0;
-            box-shadow: inset 5px 5px 15px #cccccc, inset -5px -5px 15px #ffffff;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-
         input[type="text"]:focus,
         input[type="number"]:focus {
-            box-shadow: inset 5px 5px 15px #b8b8b8, inset -5px -5px 15px #ffffff;
+            border-color: #2980b9;
+            box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
             outline: none;
         }
-
         button {
-            background: linear-gradient(145deg, #ff416c, #ff4b2b);
+            background-color: #3498db;
             color: #fff;
             border: none;
-            padding: 15px;
-            border-radius: 30px;
+            padding: 12px 20px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
             width: 100%;
-            box-shadow: 5px 5px 15px #c9c9c9, -5px -5px 15px #ffffff;
+            margin-top: 10px;
         }
-
         button:hover {
-            background: linear-gradient(145deg, #ff4b2b, #ff416c);
-            box-shadow: 5px 5px 20px #ff7b7b, -5px -5px 20px #ff9999;
+            background-color: #2980b9;
+            transform: translateY(-2px);
         }
-
         #result {
             margin-top: 20px;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 20px;
-            box-shadow: inset 5px 5px 15px #c9c9c9, inset -5px -5px 15px #ffffff;
+            padding: 15px;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
             text-align: left;
-            font-size: 16px;
-            color: #333;
+            font-size: 14px;
+            color: #2c3e50;
             display: none;
         }
-
         a {
             display: inline-block;
             margin-top: 20px;
-            color: #2a5298;
+            color: #3498db;
             text-decoration: none;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
         }
-
         a:hover {
             text-decoration: underline;
-            color: #2a5298;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
