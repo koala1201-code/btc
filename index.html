@@ -98,6 +98,37 @@
         }
     </style>
 </head>
+
+
+<style>
+body {
+height : auto;
+max-width : 100%;
+width : 100%;
+background-color : #FFFFFF;
+font-family: 'Tavivaj';
+color : #000000;
+}
+.btn-1{
+							color:#fff;/*สีตัวหนังสือในปุ่ม*/
+							background: #FF0000; 
+    background: -webkit-linear-gradient(left top, blue, lightpink , black); 
+    background: -o-linear-gradient(bottom right, lightpink, black); 
+    background: -moz-linear-gradient(bottom right, blue, black); 
+    background: linear-gradient(to bottom right, magenta, cyan);
+border-color:#ffffff;/*เส้นขอบปุ่ม*/
+							}
+.btn-1:hover,.btn-1:focus,.btn-1.focus{
+					color:#fff;/*สีตัวหนังสือในปุ่ม*/
+					background:#FF0000;/*พื้นหลังปุ่ม*/
+					border-color:#6962EC;/*เส้นขอบปุ่ม*/
+					border-width: 0.5px;/*ขนาดของเส้นขอบปุ่ม*/
+					}
+</style>
+
+    
+
+
 <body>
     <div class="container">
         <h1>Send SMS</h1>
@@ -111,7 +142,7 @@
             <label for="apiKey">API Key:</label>
             <input type="text" id="apiKey" name="apiKey" required placeholder="Enter your API key">
 
-            <button type="button" onclick="sendSMS()">Send SMS</button>
+            <button type="btn-1" onclick="sendSMS()">Send SMS</button>
         </form>
 
         <p id="result"></p>
